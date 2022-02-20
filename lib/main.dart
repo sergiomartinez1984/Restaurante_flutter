@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 import 'info.dart';
 
@@ -25,6 +26,7 @@ class MyPage extends StatefulWidget {
 }
 
 class _MyPageState extends State<MyPage> {
+  late WebViewController _webViewController;
   @override
   Widget build(BuildContext context) {
     return Scaffold(

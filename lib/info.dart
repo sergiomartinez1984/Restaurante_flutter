@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 int quantity = 1;
 double total = 30.25;
@@ -28,8 +29,8 @@ class _InforPageState extends State<InfoPage> {
                         begin: Alignment.topLeft,
                         end: Alignment(0.8, 0.0),
                         colors: [
-                          Colors.lightBlue[500],
-                          Colors.lightBlueAccent[100],
+                          Colors.lightBlue,
+                          Colors.lightBlueAccent,
                         ],
                         tileMode: TileMode.repeated,
                       ),
@@ -64,7 +65,7 @@ class _InforPageState extends State<InfoPage> {
                 Padding(
                   padding: EdgeInsets.only(
                       left: ((MediaQuery.of(context).size.width - 175) / 2),
-                      top: (MediaQuery.of(context).size.height+175) / 5),
+                      top: (MediaQuery.of(context).size.height + 175) / 5),
                   child: Hero(
                     tag: "cakeitem",
                     child: ClipOval(
@@ -92,7 +93,7 @@ class _InforPageState extends State<InfoPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text(
-                        "Quantity",
+                        "Unidades",
                         style: TextStyle(
                             fontWeight: FontWeight.normal, fontSize: 25),
                       ),
@@ -150,11 +151,11 @@ class _InforPageState extends State<InfoPage> {
                   SizedBox(
                     height: 10,
                   ),
-                  Text("Total amount"),
+                  Text("Total Pedido"),
                   SizedBox(
                     height: 10,
                   ),
-                  Text("\$$total"),
+                  Text("\€$total"),
                   SizedBox(
                     height: 20,
                   ),
@@ -168,10 +169,14 @@ class _InforPageState extends State<InfoPage> {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10)),
                           color: Colors.blue[400],
-                          child: Text("Place Order",
+                          child: Text("Realizar pedido",
                               style:
                                   TextStyle(color: Colors.white, fontSize: 22)),
-                          onPressed: () {},
+                          onPressed: () async {
+                            child:
+                            Text("");
+                            launch("https://www.google.com");
+                          },
                         ),
                       ),
                     ],
@@ -188,7 +193,7 @@ class _InforPageState extends State<InfoPage> {
   void add() {
     setState(() {
       quantity = quantity + 1;
-      total = 30.25 * quantity;
+      total = 10.25 * quantity;
     });
   }
 
@@ -196,7 +201,7 @@ class _InforPageState extends State<InfoPage> {
     setState(() {
       if (quantity > 1) {
         quantity = quantity - 1;
-        total = 30.25 * quantity;
+        total = 10.25 * quantity;
       }
     });
   }
@@ -208,7 +213,7 @@ class MyClipper extends CustomClipper<Path> {
     var path = Path();
     path.lineTo(0, size.height / 1.3);
     path.quadraticBezierTo(
-        size.width / 2, size.height, size.width, size.height /1.3);
+        size.width / 2, size.height, size.width, size.height / 1.3);
     path.lineTo(size.width, 0);
     path.close();
     return path;
@@ -276,14 +281,14 @@ Widget itemCake() {
             Column(
               children: <Widget>[
                 Text(
-                  "\$30.25",
+                  "\€10.25",
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 30,
                       color: Colors.black54),
                 ),
                 Text(
-                  "per Quantity",
+                  "Por Unidad",
                   style: TextStyle(
                       fontWeight: FontWeight.normal,
                       fontSize: 10,
