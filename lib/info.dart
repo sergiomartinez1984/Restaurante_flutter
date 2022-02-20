@@ -175,7 +175,7 @@ class _InforPageState extends State<InfoPage> {
                           onPressed: () async {
                             child:
                             Text("");
-                            launch("https://www.google.com");
+                            launch("https://glovoapp.com/es/es/granada/");
                           },
                         ),
                       ),
