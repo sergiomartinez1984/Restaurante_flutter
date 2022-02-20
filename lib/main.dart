@@ -1,3 +1,7 @@
+import 'dart:developer';
+import 'dart:ffi';
+import 'package:Restaurant/main.dart';
+import 'package:Restaurant/provider/Theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -26,7 +30,20 @@ class MyPage extends StatefulWidget {
 }
 
 class _MyPageState extends State<MyPage> {
+  ThemeProvider themeChangeProvider = new ThemeProvider();
   late WebViewController _webViewController;
+
+  @override
+  void initState() {
+    super.initState();
+    getCurrentAppTheme();
+  }
+
+  void getCurrentAppTheme() async {
+    themeChangeProvider.setTheme =
+        await themeChangeProvider.themePreference.getTheme();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
