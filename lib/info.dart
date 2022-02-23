@@ -1,15 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:meta/meta.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 int quantity = 1;
 double total = 30.25;
 
 class InfoPage extends StatefulWidget {
+  final String rutaFoto;
+  InfoPage(this.rutaFoto);
+
   @override
   _InforPageState createState() => _InforPageState();
 }
 
 class _InforPageState extends State<InfoPage> {
+  late TextEditingController _controller;
+
+  @override
+  void initState() {
+    _controller = TextEditingController(text: widget.rutaFoto);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,8 +41,8 @@ class _InforPageState extends State<InfoPage> {
                         begin: Alignment.topLeft,
                         end: Alignment(0.8, 0.0),
                         colors: [
-                          Colors.lightBlue,
-                          Colors.lightBlueAccent,
+                          Color.fromARGB(255, 163, 13, 13),
+                          Color.fromARGB(255, 15, 15, 15),
                         ],
                         tileMode: TileMode.repeated,
                       ),
@@ -44,9 +56,9 @@ class _InforPageState extends State<InfoPage> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Text(
-                                "Italian Choco Cake",
+                                "TE ATREVES A PROBARLO!!!",
                                 style: TextStyle(
-                                    color: Colors.white,
+                                    color: Color.fromARGB(255, 250, 246, 246),
                                     fontWeight: FontWeight.bold,
                                     fontSize: 20),
                               ),
@@ -57,24 +69,23 @@ class _InforPageState extends State<InfoPage> {
                             ],
                           ),
                         ),
-                        itemCake(),
                       ],
                     ),
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(
-                      left: ((MediaQuery.of(context).size.width - 175) / 2),
-                      top: (MediaQuery.of(context).size.height + 175) / 5),
-                  child: Hero(
-                    tag: "cakeitem",
-                    child: ClipOval(
-                      child: Container(
-                        child: new Image.asset(
-                          "assets/cake.jpg",
+                  padding: EdgeInsets.only(top: 90),
+                  child: Center(
+                    child: Container(
+                      height: 250.0,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(250),
+                      ),
+                      child: ClipOval(
+                        child: Image(
                           fit: BoxFit.cover,
-                          width: 175,
-                          height: 175,
+                          alignment: Alignment.topRight,
+                          image: AssetImage(_controller.text),
                         ),
                       ),
                     ),
@@ -99,7 +110,7 @@ class _InforPageState extends State<InfoPage> {
                       ),
                       Container(
                         decoration: new BoxDecoration(
-                          color: Colors.blue[200],
+                          color: Color.fromARGB(255, 3, 3, 3),
                           borderRadius: new BorderRadius.circular(250),
                         ),
                         width: 100,
@@ -125,7 +136,7 @@ class _InforPageState extends State<InfoPage> {
                               Text(
                                 "$quantity",
                                 style: TextStyle(
-                                    //color: Colors.black,
+                                    color: Color.fromARGB(255, 248, 247, 247),
                                     fontWeight: FontWeight.normal,
                                     fontSize: 18),
                               ),
@@ -138,7 +149,7 @@ class _InforPageState extends State<InfoPage> {
                                   onTap: add,
                                   child: Icon(
                                     Icons.add,
-                                    color: Colors.green,
+                                    color: Color.fromARGB(255, 238, 5, 5),
                                   ),
                                 ),
                               ),
@@ -168,10 +179,11 @@ class _InforPageState extends State<InfoPage> {
                         child: RaisedButton(
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10)),
-                          color: Colors.blue[400],
+                          color: Color.fromARGB(255, 10, 10, 10),
                           child: Text("Realizar pedido",
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 22)),
+                              style: TextStyle(
+                                  color: Color.fromARGB(255, 240, 3, 3),
+                                  fontSize: 22)),
                           onPressed: () async {
                             child:
                             Text("");
@@ -223,98 +235,4 @@ class MyClipper extends CustomClipper<Path> {
   bool shouldReclip(CustomClipper<Path> oldClipper) {
     return false;
   }
-}
-
-Widget itemCake() {
-  return Container(
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        SizedBox(
-          height: 15,
-        ),
-        Text(
-          "Dark Belgium chocolate",
-          style: TextStyle(
-              fontWeight: FontWeight.normal, fontSize: 15, color: Colors.white),
-        ),
-        SizedBox(
-          height: 15,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Row(
-              children: <Widget>[
-                SizedBox(
-                  width: 5,
-                ),
-                Container(
-                  width: 50,
-                  decoration: BoxDecoration(
-                    color: Colors.lightBlue[100],
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  alignment: Alignment.center,
-                  child: Text(
-                    "Cold",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                  ),
-                ),
-                SizedBox(
-                  width: 5,
-                ),
-                Container(
-                  width: 50,
-                  decoration: BoxDecoration(
-                    color: Colors.red[100],
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  alignment: Alignment.center,
-                  child: Text(
-                    "Fresh",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                  ),
-                ),
-              ],
-            ),
-            Column(
-              children: <Widget>[
-                Text(
-                  "\€10.25",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 30,
-                      color: Colors.black54),
-                ),
-                Text(
-                  "Por Unidad",
-                  style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                      fontSize: 10,
-                      color: Colors.black),
-                )
-              ],
-            )
-          ],
-        ),
-        SizedBox(
-          height: 15,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            SizedBox(
-              width: 5,
-            ),
-            Icon(Icons.star, size: 15, color: Colors.orangeAccent),
-            Icon(Icons.star, size: 15, color: Colors.orangeAccent),
-            Icon(Icons.star, size: 15, color: Colors.orangeAccent),
-            Icon(Icons.star, size: 15, color: Colors.orangeAccent),
-            Icon(Icons.star, size: 15, color: Colors.orangeAccent),
-          ],
-        ),
-      ],
-    ),
-  );
 }
